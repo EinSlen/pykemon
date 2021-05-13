@@ -37,14 +37,7 @@ class Game:
 
         self.group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=5)
         self.group.add(self.player)
-
-
-        enter_house = self.tmx_data.get_object_by_name('enter_house')
-        self.enter_house_rect = pygame.Rect(enter_house.x, enter_house.y, enter_house.width, enter_house.height)
-
-
-        enter_house2 = self.tmx_data.get_object_by_name('enter_house2')
-        self.enter_house_rect2 = pygame.Rect(enter_house2.x, enter_house2.y, enter_house2.width, enter_house2.height)
+        self.enter_house()
 
     def handle_input(self):
         pressed = pygame.key.get_pressed()
@@ -87,6 +80,8 @@ class Game:
         spawn_house_point = self.tmx_data.get_object_by_name(spawn_house)
         self.player.position[0] = spawn_house_point.x
         self.player.position[1] = spawn_house_point.y - 20
+        self.map = 'house'
+        print('Change : ' + self.map)
 
     def switch_world(self, world_name, house_name, spawn_name):
 
@@ -113,30 +108,42 @@ class Game:
         spawn_house_point = self.tmx_data.get_object_by_name(spawn_name)
         self.player.position[0] = spawn_house_point.x
         self.player.position[1] = spawn_house_point.y - 20
+        self.map = 'world'
+        print('Change : ' + self.map)
+
+    def enter_house(self):
+        enter_house = self.tmx_data.get_object_by_name('enter_house')
+        self.enter_house_rect = pygame.Rect(enter_house.x, enter_house.y, enter_house.width, enter_house.height)
+        enter_house2 = self.tmx_data.get_object_by_name('enter_house2')
+        self.enter_house_rect2 = pygame.Rect(enter_house2.x, enter_house2.y, enter_house2.width, enter_house2.height)
+        enter_house3 = self.tmx_data.get_object_by_name('enter_house3')
+        self.enter_house_rect3 = pygame.Rect(enter_house3.x, enter_house3.y, enter_house3.width, enter_house3.height)
+        enter_world = self.tmx_data.get_object_by_name('enter_world2')
+        self.enter_world_rect = pygame.Rect(enter_world.x, enter_world.y, enter_world.width, enter_world.height)
 
     def get_switch(self):
+
         for obj in self.tmx_data.objects:
             if obj.name == 'enter_house':
-                if self.map == 'world' and self.player.feet.colliderect(self.enter_house_rect):
-                    self.map = 'house'
-                    self.switch_house('house1', 'exit_house', 'spawn_house')
-                    print('Change : ' + self.map)
-                    print('YAYA')
+                if self.map == 'world' and self.player.feet.colliderect(self.enter_house_rect): self.switch_house('house1', 'exit_house', 'spawn_house')
             if obj.name == 'exit_house':
-                if self.map == 'house' and self.player.feet.colliderect(self.enter_house_rect):
-                    self.map = 'world'
-                    self.switch_world('map', 'enter_house', 'enter_house_exit')
-                    print('Change : ' + self.map)
+                if self.map == 'house' and self.player.feet.colliderect(self.enter_house_rect): self.switch_world('map', 'enter_house', 'enter_house_exit')
             if obj.name == 'enter_house2':
-                if self.map == 'world' and self.player.feet.colliderect(self.enter_house_rect2):
-                    self.map = 'house'
-                    self.switch_house('house2', 'exit_house2', 'spawn_house2')
-                    print('Change : ' + self.map)
+                if self.map == 'world' and self.player.feet.colliderect(self.enter_house_rect2): self.switch_house('house2', 'exit_house2', 'spawn_house2')
             if obj.name == 'exit_house2':
-                if self.map == 'house' and self.player.feet.colliderect(self.enter_house_rect):
-                    self.map = 'world'
-                    self.switch_world('map', 'enter_house', 'enter_house_exit2')
-                    print('Change : ' + self.map)
+                if self.map == 'house' and self.player.feet.colliderect(self.enter_house_rect): self.switch_world('map', 'enter_house', 'enter_house_exit2')
+            if obj.name == 'enter_house3':
+                if self.map == 'world' and self.player.feet.colliderect(self.enter_house_rect3): self.switch_house('house3', 'exit_house3', 'spawn_house3')
+            if obj.name == 'exit_house3':
+                if self.map == 'house' and self.player.feet.colliderect(self.enter_house_rect): self.switch_world('map', 'enter_house', 'enter_house_exit3')
+
+
+            if obj.name == 'enter_world2':
+                if self.map == 'world' and self.player.feet.colliderect(self.enter_world_rect): self.switch_world('map2', 'exit_world2', 'spawn_world2')
+            if obj.name == 'exit_world2':
+                if self.map == 'world' and self.player.feet.colliderect(self.enter_house_rect): self.switch_world('map', 'enter_house', 'spawn_world1')
+
+
 
     def update(self):
         self.group.update()
