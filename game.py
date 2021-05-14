@@ -13,6 +13,7 @@ class Game:
 
     def __init__(self):
         self.map = 'world'
+        self.tiledmap = 'world1'
         self.screen = pygame.display.set_mode((800, 600))
         pygame.display.set_caption("Pykemon - Adventure")
         icon = pygame.image.load("img/icon.png")
@@ -37,7 +38,6 @@ class Game:
 
         self.group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=5)
         self.group.add(self.player)
-        self.enter_house()
 
     def handle_input(self):
         pressed = pygame.key.get_pressed()
@@ -59,7 +59,7 @@ class Game:
 
         self.screen = pygame.display.set_mode((800, 600))
         self.tmx_data = pytmx.util_pygame.load_pygame('map/' + map_name + '.tmx')
-        print('NEW MAP Generate : ' + map_name)
+        print('NEW MAP Generate : ' + str(self.tmx_data))
         map_data = pyscroll.data.TiledMapData(self.tmx_data)
         map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
         map_layer.zoom = self.zoom
@@ -89,7 +89,7 @@ class Game:
         self.tmx_data = pytmx.util_pygame.load_pygame('map/' + world_name + '.tmx')
         map_data = pyscroll.data.TiledMapData(self.tmx_data)
         map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
-        print('NEW MAP Generate : ' + world_name)
+        print('NEW MAP Generate : ' + str(self.tmx_data))
         map_layer.zoom = self.zoom
 
         self.walls = []
@@ -111,37 +111,66 @@ class Game:
         self.map = 'world'
         print('Change : ' + self.map)
 
+        if world_name == 'map': self.tiledmap = 'world1'
+        elif world_name == 'map2': self.tiledmap = 'world2'
+        elif world_name == 'map3': self.tiledmap = 'world3'
+
     def enter_house(self):
-        enter_house = self.tmx_data.get_object_by_name('enter_house')
-        self.enter_house_rect = pygame.Rect(enter_house.x, enter_house.y, enter_house.width, enter_house.height)
-        enter_house2 = self.tmx_data.get_object_by_name('enter_house2')
-        self.enter_house_rect2 = pygame.Rect(enter_house2.x, enter_house2.y, enter_house2.width, enter_house2.height)
-        enter_house3 = self.tmx_data.get_object_by_name('enter_house3')
-        self.enter_house_rect3 = pygame.Rect(enter_house3.x, enter_house3.y, enter_house3.width, enter_house3.height)
-        enter_world = self.tmx_data.get_object_by_name('enter_world2')
-        self.enter_world_rect = pygame.Rect(enter_world.x, enter_world.y, enter_world.width, enter_world.height)
+        try:
+            if self.map == 'world':
+                if self.tiledmap == 'world1':
+                    enter_house = self.tmx_data.get_object_by_name('enter_house')
+                    self.enter_house_rect = pygame.Rect(enter_house.x, enter_house.y, enter_house.width, enter_house.height)
+                    enter_house2 = self.tmx_data.get_object_by_name('enter_house2')
+                    self.enter_house_rect2 = pygame.Rect(enter_house2.x, enter_house2.y, enter_house2.width, enter_house2.height)
+                    enter_house3 = self.tmx_data.get_object_by_name('enter_house3')
+                    self.enter_house_rect3 = pygame.Rect(enter_house3.x, enter_house3.y, enter_house3.width, enter_house3.height)
+                    enter_world = self.tmx_data.get_object_by_name('enter_world2')
+                    self.enter_world_rect = pygame.Rect(enter_world.x, enter_world.y, enter_world.width, enter_world.height)
+                if self.tiledmap == 'world2':
+                    enter_house4 = self.tmx_data.get_object_by_name('enter_house4')
+                    self.enter_house_rect4 = pygame.Rect(enter_house4.x, enter_house4.y, enter_house4.width, enter_house4.height)
+        except (RuntimeError, TypeError, NameError):
+            print('Error enter_house ' + RuntimeError + TypeError + NameError)
+
 
     def get_switch(self):
 
         for obj in self.tmx_data.objects:
-            if obj.name == 'enter_house':
-                if self.map == 'world' and self.player.feet.colliderect(self.enter_house_rect): self.switch_house('house1', 'exit_house', 'spawn_house')
-            if obj.name == 'exit_house':
-                if self.map == 'house' and self.player.feet.colliderect(self.enter_house_rect): self.switch_world('map', 'enter_house', 'enter_house_exit')
-            if obj.name == 'enter_house2':
-                if self.map == 'world' and self.player.feet.colliderect(self.enter_house_rect2): self.switch_house('house2', 'exit_house2', 'spawn_house2')
-            if obj.name == 'exit_house2':
-                if self.map == 'house' and self.player.feet.colliderect(self.enter_house_rect): self.switch_world('map', 'enter_house', 'enter_house_exit2')
-            if obj.name == 'enter_house3':
-                if self.map == 'world' and self.player.feet.colliderect(self.enter_house_rect3): self.switch_house('house3', 'exit_house3', 'spawn_house3')
-            if obj.name == 'exit_house3':
-                if self.map == 'house' and self.player.feet.colliderect(self.enter_house_rect): self.switch_world('map', 'enter_house', 'enter_house_exit3')
+            self.enter_house()
+            if self.tiledmap == 'world1':
+                #Monde 1
+                try:
+                    if obj.name == 'enter_house':
+                        if self.map == 'world' and self.player.feet.colliderect(self.enter_house_rect): self.switch_house('house1', 'exit_house', 'spawn_house')
+                    if obj.name == 'exit_house':
+                        if self.map == 'house' and self.player.feet.colliderect(self.enter_house_rect): self.switch_world('map', 'enter_house', 'enter_house_exit')
+                    if obj.name == 'enter_house2':
+                        if self.map == 'world' and self.player.feet.colliderect(self.enter_house_rect2): self.switch_house('house2', 'exit_house2', 'spawn_house2')
+                    if obj.name == 'exit_house2':
+                        if self.map == 'house' and self.player.feet.colliderect(self.enter_house_rect): self.switch_world('map', 'enter_house', 'enter_house_exit2')
+                    if obj.name == 'enter_house3':
+                        if self.map == 'world' and self.player.feet.colliderect(self.enter_house_rect3): self.switch_house('house3', 'exit_house3', 'spawn_house3')
+                    if obj.name == 'exit_house3':
+                        if self.map == 'house' and self.player.feet.colliderect(self.enter_house_rect): self.switch_world('map', 'enter_house', 'enter_house_exit3')
+                    if obj.name == 'enter_world2':
+                        if self.map == 'world' and self.player.feet.colliderect(self.enter_world_rect): self.switch_world('map2', 'exit_world2', 'spawn_world2')
+                except (RuntimeError, TypeError, NameError):
+                    print('Error get_switch ' + RuntimeError + TypeError + NameError)
+                    print('Error get_switch ' + self.tiledmap)
+            if self.tiledmap == 'world2':
+                #Monde 2
+                try:
+                    if obj.name == 'exit_world2':
+                        if self.map == 'world' and self.player.feet.colliderect(self.enter_house_rect): self.switch_world('map', 'enter_house', 'spawn_world1')
+                    if obj.name == 'enter_house4':
+                        if self.map == 'world' and self.player.feet.colliderect(self.enter_house_rect4): self.switch_house('house4', 'exit_house4', 'spawn_house4')
+                    if obj.name == 'exit_house4':
+                        if self.map == 'house' and self.player.feet.colliderect(self.enter_house_rect): self.switch_world('map2', 'enter_house4', 'enter_house_exit4')
 
-
-            if obj.name == 'enter_world2':
-                if self.map == 'world' and self.player.feet.colliderect(self.enter_world_rect): self.switch_world('map2', 'exit_world2', 'spawn_world2')
-            if obj.name == 'exit_world2':
-                if self.map == 'world' and self.player.feet.colliderect(self.enter_house_rect): self.switch_world('map', 'enter_house', 'spawn_world1')
+                except (RuntimeError, TypeError, NameError):
+                    print('Error get_switch ' + RuntimeError + TypeError + NameError)
+                    print('Error get_switch ' + self.tiledmap)
 
 
 
@@ -160,7 +189,6 @@ class Game:
         running = True
 
         while running:
-
             self.player.save_location()
             self.handle_input()
             self.update()
