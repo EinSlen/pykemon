@@ -1,5 +1,3 @@
-# pykemon
-Pokemon with python and tmx files
 <h1 align="center">Welcome to Pykemon 👋</h1>
 <h2 align="center">Pokemon video game with python and tmx files</h2>
 <p>
