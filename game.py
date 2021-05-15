@@ -3,6 +3,7 @@ import pytmx
 import pyscroll
 
 from player import Player
+from inventory import Inventory
 
 
 # important:
@@ -10,7 +11,6 @@ from player import Player
 # enter_house1 / enter_house_exit1 / exit_house1 / spawn_house1
 
 class Game:
-
     def __init__(self):
         self.map = 'world'
         self.tiledmap = 'world1'
@@ -29,6 +29,9 @@ class Game:
         player_position = self.tmx_data.get_object_by_name("player")
         self.player = Player(player_position.x, player_position.y)
 
+        self.inventory = Inventory(self.screen)
+        self.inventory_is_open = False
+
         self.walls = []
 
         for obj in self.tmx_data.objects:
@@ -38,6 +41,14 @@ class Game:
 
         self.group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=5)
         self.group.add(self.player)
+
+    def draw_inventory(self):
+        menu = pygame.image.load("img/menu.jpg").convert_alpha()
+        menu = pygame.transform.scale(menu, self.screen.get_size())
+        if self.inventory_is_open:
+            self.screen.blit(menu, (0, 0))
+        else:
+            menu.fill((0, 0, 0))
 
     def handle_input(self):
         pressed = pygame.key.get_pressed()
@@ -54,6 +65,14 @@ class Game:
         elif pressed[pygame.K_RIGHT]:
             self.player.move_right()
             self.player.change_animation('right')
+        elif pressed[pygame.K_e]:
+            self.inventory.open_inventory()
+            self.inventory_is_open = True
+            self.draw_inventory()
+        elif pressed[pygame.K_ESCAPE]:
+            self.inventory.close_inventory()
+            self.inventory_is_open = False
+            self.draw_inventory()
 
     def switch_house(self, map_name, spawn_name, spawn_house):
 
@@ -224,6 +243,7 @@ class Game:
             self.update()
             self.group.center(self.player.rect)
             self.group.draw(self.screen)
+            self.draw_inventory()
             pygame.display.flip()
 
             for event in pygame.event.get():
