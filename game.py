@@ -65,14 +65,6 @@ class Game:
         elif pressed[pygame.K_RIGHT]:
             self.player.move_right()
             self.player.change_animation('right')
-        elif pressed[pygame.K_e]:
-            self.inventory.open_inventory()
-            self.inventory_is_open = True
-            self.draw_inventory()
-        elif pressed[pygame.K_ESCAPE]:
-            self.inventory.close_inventory()
-            self.inventory_is_open = False
-            self.draw_inventory()
 
     def switch_house(self, map_name, spawn_name, spawn_house):
 
@@ -243,7 +235,7 @@ class Game:
             self.update()
             self.group.center(self.player.rect)
             self.group.draw(self.screen)
-            self.draw_inventory()
+            self.inventory.run()
             pygame.display.flip()
 
             for event in pygame.event.get():
