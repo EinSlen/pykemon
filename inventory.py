@@ -1,21 +1,23 @@
 import pygame
-import pytmx
-import pyscroll
 
 class Inventory(pygame.sprite.Sprite):
-    def __init__(self, screen):
+    def __init__(self, screen, group):
         print('INVENTORY LOAD')
         self.inv = []
         self.inventory_img = 'img/icon.png'
         self.screen = screen
+        self.group = group
 
     def draw_inventory(self):
         menu = pygame.image.load("img/menu.jpg").convert_alpha()
         menu = pygame.transform.scale(menu, self.screen.get_size())
         if self.inventory_is_open:
             self.screen.blit(menu, (0, 0))
-        else:
-            menu.fill((0, 0, 0))
+            for sprite in self.group.sprites():
+                    sprite.move_back()
+
+        for i in self.inv:
+            print('Inventory' + i)
 
 
     def add_inventory(self, item):
@@ -30,8 +32,4 @@ class Inventory(pygame.sprite.Sprite):
         if pressed[pygame.K_e]:
             #self.open_inventory()
             self.inventory_is_open = True
-            self.draw_inventory()
-        else:
-            #self.close_inventory()
-            self.inventory_is_open = False
             self.draw_inventory()
