@@ -4,7 +4,7 @@ import pyscroll
 
 from player import Player
 from inventory import Inventory
-
+from menu import Menu
 
 # important:
 # collision
@@ -29,9 +29,6 @@ class Game:
         player_position = self.tmx_data.get_object_by_name("player")
         self.player = Player(player_position.x, player_position.y)
 
-        self.inventory = Inventory(self.screen)
-        self.inventory_is_open = False
-
         self.walls = []
 
         for obj in self.tmx_data.objects:
@@ -42,13 +39,8 @@ class Game:
         self.group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=5)
         self.group.add(self.player)
 
-    def draw_inventory(self):
-        menu = pygame.image.load("img/menu.jpg").convert_alpha()
-        menu = pygame.transform.scale(menu, self.screen.get_size())
-        if self.inventory_is_open:
-            self.screen.blit(menu, (0, 0))
-        else:
-            menu.fill((0, 0, 0))
+        self.inventory = Inventory(self.screen, self.group)
+        self.menu = Menu(self.screen)
 
     def handle_input(self):
         pressed = pygame.key.get_pressed()
@@ -236,6 +228,7 @@ class Game:
             self.group.center(self.player.rect)
             self.group.draw(self.screen)
             self.inventory.run()
+            self.menu.run()
             pygame.display.flip()
 
             for event in pygame.event.get():
