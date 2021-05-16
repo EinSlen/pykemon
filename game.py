@@ -39,7 +39,7 @@ class Game:
         self.group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=5)
         self.group.add(self.player)
 
-        self.inventory = Inventory(self.screen, self.group)
+        self.inventory = Inventory(self.screen, self.group, self.tmx_data)
         self.menu = Menu(self.screen)
 
     def handle_input(self):
@@ -227,7 +227,7 @@ class Game:
             self.update()
             self.group.center(self.player.rect)
             self.group.draw(self.screen)
-            self.inventory.run()
+            self.inventory.run(self.tmx_data, self.map)
             self.menu.run()
             pygame.display.flip()
 
