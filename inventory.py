@@ -1,6 +1,6 @@
 import pygame
 from function import Function
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw
 
 
 class Inventory(pygame.sprite.Sprite):
