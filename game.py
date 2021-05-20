@@ -222,6 +222,7 @@ class Game:
         running = True
 
         while running:
+            pygame.mouse.set_visible(False)
             self.player.save_location()
             self.handle_input()
             self.update()
