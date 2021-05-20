@@ -7,7 +7,7 @@ class Inventory(pygame.sprite.Sprite):
     def __init__(self, screen, group, tmx_data):
         print('INVENTORY LOAD')
         self.inv = ["pikachu"]
-        self.life = [100, 100, 100, 100, 100, 100, 100, 100]
+        self.life = [100, 10, 100, 100, 100, 100, 100, 100]
         self.menu = pygame.image.load("img/menu.jpg").convert_alpha()
         self.screen = screen
         self.group = group
@@ -22,25 +22,25 @@ class Inventory(pygame.sprite.Sprite):
             for sprite in self.group.sprites():
                 sprite.move_back()
             if len(self.inv) >= 1:
-                self.draw_item(self.inv[0], 180, 140, self.life[0])
+                self.draw_item(self.inv[0], 180, 140, self.life[0], 0)
             if len(self.inv) >= 2:
-                self.draw_item(self.inv[1], 180, 225, self.life[1])
+                self.draw_item(self.inv[1], 180, 225, self.life[1], 1)
             if len(self.inv) >=3:
-                self.draw_item(self.inv[2], 180, 305, self.life[2])
+                self.draw_item(self.inv[2], 180, 305, self.life[2], 2)
             if len(self.inv) >=4:
-                self.draw_item(self.inv[3], 180, 390, self.life[3])
+                self.draw_item(self.inv[3], 180, 390, self.life[3], 3)
             if len(self.inv) >=5:
-                self.draw_item(self.inv[4], 425, 140, self.life[4])
+                self.draw_item(self.inv[4], 425, 140, self.life[4], 4)
             if len(self.inv) >=6:
-                self.draw_item(self.inv[5], 425, 225, self.life[5])
+                self.draw_item(self.inv[5], 425, 225, self.life[5], 5)
             if len(self.inv) >=7:
-                self.draw_item(self.inv[6], 425, 305, self.life[6])
+                self.draw_item(self.inv[6], 425, 305, self.life[6], 6)
             if len(self.inv) >= 8:
-                self.draw_item(self.inv[7], 425, 390, self.life[7])
+                self.draw_item(self.inv[7], 425, 390, self.life[7], 7)
 
 
 
-    def draw_item(self, item, x, y, life):
+    def draw_item(self, item, x, y, life, life_number):
         image = Image.new('RGB', (100, 30), color=(255, 255, 255))
         d = ImageDraw.Draw(image)
         d.text((10, 10), 'Life : ' + str(life) + '/100', fill=(255, 105, 180))
@@ -64,26 +64,27 @@ class Inventory(pygame.sprite.Sprite):
         draw_image_poke = pygame.transform.scale(draw_image_poke, (65,50))
         self.screen.blit(draw_image_poke, (x, y))
 
-        self.get_trash(item, life)
+        self.get_trash(item, life_number)
         self.get_close()
 
     def add_inventory(self, item):
         if len(self.inv) < 8:
             self.inv.append(item)
+            print(str(item) + " as added in inventory")
         else:
             self.function.error('No add inventory')
 
-    def remove_inventory(self, item, life):
+    def remove_inventory(self, item, life_number):
         if len(self.inv) > 1:
             self.inv.remove(item)
-            life = 100
-            print(str(item) + " as delete | set variable " + str(life))
+            self.life[life_number] = 100
+            print(str(item) + " as delete | delete variable life")
         else:
             self.function.error('No remove inventory')
 
-    def get_trash(self, item, life):
+    def get_trash(self, item, life_number):
         if pygame.mouse.get_pressed()[0] and self.Rectplace.collidepoint(pygame.mouse.get_pos()):
-            self.remove_inventory(item, life)
+            self.remove_inventory(item, life_number)
 
     def get_close(self):
         Rectplace_close = pygame.draw.rect(self.screen, (255, 255, 255), (340, 480, 120, 60))
