@@ -32,6 +32,11 @@ class Function:
         draw = pygame.image.load('img/' + msg + '.png').convert_alpha()
         self.screen.blit(draw, (0, 0))
 
+    #draw_image_name = Image.new('RGB', (120, 30), color=(255, 255, 255))
+    #d_name = ImageDraw.Draw(draw_image_name)
+    #d_name.text((10, 10), "Pokemon as healed", fill=(229, 52, 213))
+    #draw_image_name.save('img/as_health.png')
+
 
 
 
