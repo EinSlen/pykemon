@@ -17,7 +17,7 @@
 
 ### 🏠 [Homepage](https://github.com/einslen#readme)
 
-## Prerequisites
+## 🔥 Prerequisites
 
 - python 3.9
 - pip 20.1
@@ -25,9 +25,11 @@
 - pip install pytmx
 - pip install pyscroll
 
-## Usage
+## 💯 Usage
 
 - py main.py
+
+## ℹ️ Information
 
  3 MAP<br/>
  7 House<br/>
@@ -49,7 +51,7 @@ arrow down -> down<br/>
 key e -> inventory<br/>
 key f -> interact environnement<i>
 
-## Author
+## ✨ Author
 
 👤 **DVLaD**
 
