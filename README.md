@@ -29,18 +29,18 @@
 
 - py main.py
 
-- 3 MAP
-- 7 House
-- 15 pokemon (1 legendary)
-- menu system
-- collision system
-- switch world/house
-- update system
-- inventory system
-- fight system
-- health pokemon system
-- capture pokemon system
-- player movement/animation/location system
+ 3 MAP<br/>
+ 7 House<br/>
+ 15 pokemon (1 legendary)<br/>
+ menu system<br/>
+ collision system<br/>
+ switch world/house<br/>
+ update system<br/>
+ inventory system<br/>
+ fight system<br/>
+ health pokemon system<br/>
+ capture pokemon system<br/>
+ player movement/animation/location system<br/>
 
 <i>arrow right -> right<br/>
 arrow left -> left<br/>
