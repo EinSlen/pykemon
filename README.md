@@ -24,6 +24,7 @@
 - pip install pygame
 - pip install pytmx
 - pip install pyscroll
+- pip install pillow
 
 ## 💯 Usage
 
