@@ -5,6 +5,7 @@ import pyscroll
 from player import Player
 from inventory import Inventory
 from menu import Menu
+from fight import Fight
 
 # important:
 # collision
@@ -41,6 +42,8 @@ class Game:
 
         self.inventory = Inventory(self.screen, self.group, self.tmx_data)
         self.menu = Menu(self.screen)
+
+        self.fight = Fight(self.screen)
 
     def handle_input(self):
         pressed = pygame.key.get_pressed()
@@ -222,7 +225,6 @@ class Game:
         running = True
 
         while running:
-            pygame.mouse.set_visible(False)
             self.player.save_location()
             self.handle_input()
             self.update()
@@ -230,6 +232,7 @@ class Game:
             self.group.draw(self.screen)
             self.inventory.run(self.tmx_data, self.map)
             self.menu.run()
+            self.fight.run(self.tmx_data, self.group, self.map, self.player, self.inventory)
             pygame.display.flip()
 
             for event in pygame.event.get():
