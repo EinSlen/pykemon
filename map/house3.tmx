@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.6.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="36">
+<map version="1.5" tiledversion="1.6.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="38">
  <tileset firstgid="1" source="house.tsx"/>
  <tileset firstgid="776" source="nature.tsx"/>
  <layer id="1" name="background" width="25" height="25">
@@ -93,7 +93,7 @@
   <object id="1" name="spawn_house3" x="53.0781" y="296.844">
    <point/>
   </object>
-  <object id="2" name="exit_house3" x="25.5561" y="272.271" width="10.3208" height="33.911"/>
+  <object id="2" name="exit_house3" x="23.5902" y="271.78" width="10.3208" height="33.911"/>
   <object id="3" type="collision" x="0" y="0" width="17.2013" height="400.052"/>
   <object id="5" type="collision" x="17.2013" y="0.491464" width="382.359" height="15.2354"/>
   <object id="6" type="collision" x="383.834" y="15.7269" width="15.7269" height="383.834"/>
