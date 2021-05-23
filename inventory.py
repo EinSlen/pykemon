@@ -118,4 +118,3 @@ class Inventory(pygame.sprite.Sprite):
                 self.inventory_is_open = True
         except:
             ''
-
