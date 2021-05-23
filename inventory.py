@@ -7,7 +7,8 @@ class Inventory(pygame.sprite.Sprite):
     def __init__(self, screen, group, tmx_data):
         print('INVENTORY LOAD')
         self.inv = ["pikachu"]
-        self.life = [100, 10, 100, 100, 100, 100, 100, 100]
+        self.life = [100, 100, 100, 100, 100, 100, 100, 100]
+        self.pokeball = 50
         self.menu = pygame.image.load("img/menu.jpg").convert_alpha()
         self.screen = screen
         self.group = group
@@ -16,7 +17,6 @@ class Inventory(pygame.sprite.Sprite):
         self.tmx_data = tmx_data
 
     def draw_inventory(self):
-        if self.inventory_is_open:
             menu = pygame.transform.scale(self.menu, self.screen.get_size())
             self.screen.blit(menu, (0, 0))
             for sprite in self.group.sprites():
@@ -24,7 +24,7 @@ class Inventory(pygame.sprite.Sprite):
             if len(self.inv) >= 1:
                 self.draw_item(self.inv[0], 180, 140, self.life[0], 0)
             if len(self.inv) >= 2:
-                self.draw_item(self.inv[1], 180, 225, self.life[1], 1)
+                self.draw_item(self.inv[1], 180, 220, self.life[1], 1)
             if len(self.inv) >=3:
                 self.draw_item(self.inv[2], 180, 305, self.life[2], 2)
             if len(self.inv) >=4:
@@ -41,27 +41,40 @@ class Inventory(pygame.sprite.Sprite):
 
 
     def draw_item(self, item, x, y, life, life_number):
+        pokeball_img = Image.new('RGB', (120, 30), color=(255, 255, 255))
+        draw_pokeball = ImageDraw.Draw(pokeball_img)
+        draw_pokeball.text((120/4, 30/4), 'Pokéball : ' + str(self.pokeball), fill=(229, 100, 52))
+        pokeball_img.save('img/pokeball.png')
+
+        draw_pokeball_img = pygame.image.load('img/pokeball.png').convert_alpha()
+        self.screen.blit(draw_pokeball_img, (350, 0))
+
         image = Image.new('RGB', (100, 30), color=(255, 255, 255))
         d = ImageDraw.Draw(image)
-        d.text((10, 10), 'Life : ' + str(life) + '/100', fill=(255, 105, 180))
+        if life > 50:
+            d.text((10, 10), 'Life : ' + str(life) + '/100', fill=(50,202,50))
+        elif life >= 20 and life <= 50:
+            d.text((10, 10), 'Life : ' + str(life) + '/100', fill=(255, 105, 180))
+        elif life < 20:
+            d.text((10, 10), 'Life : ' + str(life) + '/100', fill=(255, 0, 0))
         image.save('img/life.png')
         draw_image = pygame.image.load('img/life.png').convert_alpha()
-        self.screen.blit(draw_image, (x  + 80, y + 25))
+        self.screen.blit(draw_image, (x + 80, y + 25))
 
         draw_image_name = Image.new('RGB', (100, 30), color=(255, 255, 255))
         d_name = ImageDraw.Draw(draw_image_name)
-        d_name.text((10, 10), item, fill=(135,206,250))
+        d_name.text((10, 10), item, fill=(135, 206, 250))
         draw_image_name.save('img/name.png')
         draw_image_name_load = pygame.image.load('img/name.png').convert_alpha()
-        self.screen.blit(draw_image_name_load, (x  + 80, y))
+        self.screen.blit(draw_image_name_load, (x + 80, y))
 
         draw_image_supp = pygame.image.load("img/trash.png")
-        self.draw_image_supp = pygame.transform.scale(draw_image_supp, (32,32))
+        self.draw_image_supp = pygame.transform.scale(draw_image_supp, (32, 32))
         self.Rectplace = pygame.draw.rect(self.screen, (255, 0, 0), (x - 40, y + 10, 32, 32))
         self.screen.blit(self.draw_image_supp, (x - 40, y + 10))
 
         draw_image_poke = pygame.image.load("img/" + item + ".png")
-        draw_image_poke = pygame.transform.scale(draw_image_poke, (65,50))
+        draw_image_poke = pygame.transform.scale(draw_image_poke, (65, 50))
         self.screen.blit(draw_image_poke, (x, y))
 
         self.get_trash(item, life_number)
@@ -98,9 +111,11 @@ class Inventory(pygame.sprite.Sprite):
         self.tmx_data = tmx_data
         self.map = map
         pressed = pygame.key.get_pressed()
-        if self.inventory_is_open:
-            pygame.mouse.set_visible(True)
-        self.draw_inventory()
-        if pressed[pygame.K_e]:
-            self.inventory_is_open = True
+        try:
+            if self.inventory_is_open:
+                self.draw_inventory()
+            if pressed[pygame.K_e]:
+                self.inventory_is_open = True
+        except:
+            ''
 
