@@ -218,21 +218,29 @@ class Fight:
         menu = pygame.transform.scale(menu, self.screen.get_size())
         self.screen.blit(menu, (0, 0))
 
-        if len(self.inventory.inv) >= 1 and self.inventory.life[0] >= 0:
+        pokeball_img = Image.new('RGB', (120, 30), color=(255, 255, 255))
+        draw_pokeball = ImageDraw.Draw(pokeball_img)
+        draw_pokeball.text((120 / 4, 30 / 4), 'Pokéball : ' + str(self.inventory.pokeball), fill=(229, 100, 52))
+        pokeball_img.save('img/pokeball.png')
+
+        draw_pokeball_img = pygame.image.load('img/pokeball.png').convert_alpha()
+        self.screen.blit(draw_pokeball_img, (350, 0))
+
+        if len(self.inventory.inv) >= 1:
             self.draw_item(self.inventory.inv[0], 180, 140, self.inventory.life[0])
-        if len(self.inventory.inv) >= 2  and self.inventory.life[1] >= 0:
+        if len(self.inventory.inv) >= 2:
             self.draw_item(self.inventory.inv[1], 180, 220, self.inventory.life[1])
-        if len(self.inventory.inv) >= 3 and self.inventory.life[2] >= 0:
+        if len(self.inventory.inv) >= 3:
             self.draw_item(self.inventory.inv[2], 180, 305, self.inventory.life[2])
-        if len(self.inventory.inv) >= 4 and self.inventory.life[3] >= 0:
+        if len(self.inventory.inv) >= 4:
             self.draw_item(self.inventory.inv[3], 180, 390, self.inventory.life[3])
-        if len(self.inventory.inv) >= 5 and self.inventory.life[4] >= 0:
+        if len(self.inventory.inv) >= 5:
             self.draw_item(self.inventory.inv[4], 425, 140, self.inventory.life[4])
-        if len(self.inventory.inv) >= 6 and self.inventory.life[5] >= 0:
+        if len(self.inventory.inv) >= 6:
             self.draw_item(self.inventory.inv[5], 425, 225, self.inventory.life[5])
-        if len(self.inventory.inv) >= 7 and self.inventory.life[6] >= 0:
+        if len(self.inventory.inv) >= 7:
             self.draw_item(self.inventory.inv[6], 425, 305, self.inventory.life[6])
-        if len(self.inventory.inv) == 8 and self.inventory.life[7] >= 0:
+        if len(self.inventory.inv) == 8:
             self.draw_item(self.inventory.inv[7], 425, 390, self.inventory.life[7])
 
 
@@ -321,7 +329,3 @@ class Fight:
                 self.screen.blit(draw_image, (350, 0))
         except:
             ''
-
-
-
-
