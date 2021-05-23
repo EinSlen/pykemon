@@ -286,7 +286,7 @@ class Fight:
                 self.inventory.life[6] = self.inventory.life[6] - n
             elif len(self.inventory.inv) >= 8 and self.inventory.life[7] >= 0:
                 self.inventory.life[7] = self.inventory.life[7] - n
-            print('Attack pokemon to player')
+            print('Attack pokemon to player : -' + str(n))
             self.in_attak = True
 
     def run(self, tmx_data, group, map, player, inventory):
@@ -321,5 +321,7 @@ class Fight:
                 self.screen.blit(draw_image, (350, 0))
         except:
             ''
-            
-            
+
+
+
+
