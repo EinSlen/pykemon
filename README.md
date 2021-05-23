@@ -31,7 +31,7 @@
 
 ## ℹ️ Information
 
- 3 MAP<br/>
+ <b>3 MAP<br/>
  7 House<br/>
  15 pokemon (1 legendary)<br/>
  menu system<br/>
@@ -42,14 +42,14 @@
  fight system<br/>
  health pokemon system<br/>
  capture pokemon system<br/>
- player movement/animation/location system<br/>
+ player movement/animation/location system<br/></b>
 
 <i>arrow right -> right<br/>
 arrow left -> left<br/>
 arrow up -> up<br/>
 arrow down -> down<br/>
 key e -> inventory<br/>
-key f -> interact environnement<i>
+key f -> interact environnement</i>
 
 ## ✨ Author
 
