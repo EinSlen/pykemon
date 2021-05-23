@@ -107,9 +107,13 @@ class Fight:
             else:
                 self.function.error("You don't have Pokemon")
                 self.in_attak = None
+                Fuir = pygame.draw.rect(self.screen, (255, 255, 255), (90, 450, 80, 30))
+                if pygame.mouse.get_pressed()[0] and Fuir.collidepoint(pygame.mouse.get_pos()):
+                    self.Quit_fight()
+                fuir = pygame.image.load('img/Fuir.png').convert_alpha()
+                self.screen.blit(fuir, (90, 450))
 
     def draw_get_inv(self, item, life):
-        print(str(item) + str(life))
         draw_mypok = pygame.image.load('img/' + item + '.png').convert_alpha()
         draw_mypok = pygame.transform.scale(draw_mypok, (154, 154))
         draw_mypok = pygame.transform.flip(draw_mypok, True, False)
@@ -134,7 +138,7 @@ class Fight:
         draw_image_name_load = pygame.image.load('img/name_battle.png').convert_alpha()
         self.screen.blit(draw_image_name_load, (450, 355))
 
-        self.item_battle(life)
+        self.item_battle()
 
     def draw_item(self, item, x, y, life):
         image = Image.new('RGB', (100, 30), color=(255, 255, 255))
@@ -167,7 +171,7 @@ class Fight:
         if pygame.mouse.get_pressed()[0] and Rectplace_close.collidepoint(pygame.mouse.get_pos()):
             self.change = False
 
-    def item_battle(self, life):
+    def item_battle(self):
         Fuir = pygame.draw.rect(self.screen, (255, 255, 255), (90, 450, 80, 30))
         if pygame.mouse.get_pressed()[0] and Fuir.collidepoint(pygame.mouse.get_pos()):
             self.Quit_fight()
@@ -181,10 +185,10 @@ class Fight:
 
         Attak = pygame.draw.rect(self.screen, (255, 255, 255), (470, 450, 210, 110))
         if pygame.mouse.get_pressed()[0] and Attak.collidepoint(pygame.mouse.get_pos()):
-            self.attack(life)
+            self.attack()
 
         if self.in_attak == False:
-            self.attack(life)
+            self.attack()
 
         fuir = pygame.image.load('img/Fuir.png').convert_alpha()
         self.screen.blit(fuir, (90, 450))
@@ -256,7 +260,7 @@ class Fight:
             self.errorMess = "You don't have Pokeball"
             self.no_capture = True
 
-    def attack(self, life):
+    def attack(self):
         if self.in_attak == True:
             n = random.randint(10, 25)
             self.life_battle = self.life_battle - n
@@ -282,8 +286,6 @@ class Fight:
                 self.inventory.life[6] = self.inventory.life[6] - n
             elif len(self.inventory.inv) >= 8 and self.inventory.life[7] >= 0:
                 self.inventory.life[7] = self.inventory.life[7] - n
-            else:
-                self.Quit_fight()
             print('Attack pokemon to player')
             self.in_attak = True
 
@@ -314,12 +316,10 @@ class Fight:
                 d = ImageDraw.Draw(img)
                 d.text((10, 10), self.errorMess, fill=(255, 0, 0))
                 img.save('img/error.png')
-    
+
                 draw_image = pygame.image.load("img/error.png")
                 self.screen.blit(draw_image, (350, 0))
         except:
             ''
-
-
-
-
+            
+            
