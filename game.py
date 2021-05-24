@@ -7,6 +7,7 @@ from inventory import Inventory
 from menu import Menu
 from fight import Fight
 from health import Health
+from sound import Sound
 
 # important:
 # collision
@@ -47,8 +48,8 @@ class Game:
         self.menu = Menu(self.screen)
         self.fight = Fight(self.screen)
         self.health = Health(self.screen)
-
-
+        self.sound = Sound()
+        self.sound.create_sound('spawn_world.mp3')
 
     def handle_input(self):
         pressed = pygame.key.get_pressed()
@@ -93,6 +94,7 @@ class Game:
         self.player.position[1] = spawn_house_point.y - 20
         self.map = 'house'
         print('Change : ' + self.map)
+        self.sound.create_sound('spawn_house.mp3')
 
     def switch_world(self, world_name, house_name, spawn_name):
 
@@ -121,10 +123,15 @@ class Game:
         self.player.position[1] = spawn_house_point.y - 20
         self.map = 'world'
         print('Change : ' + self.map)
-
-        if world_name == 'map': self.tiledmap = 'world1'
-        elif world_name == 'map2': self.tiledmap = 'world2'
-        elif world_name == 'map3': self.tiledmap = 'world3'
+        if world_name == 'map':
+            self.tiledmap = 'world1'
+            self.sound.create_sound('spawn_world.mp3')
+        elif world_name == 'map2':
+            self.tiledmap = 'world2'
+            self.sound.create_sound('spawn_world2.mp3')
+        elif world_name == 'map3':
+            self.tiledmap = 'world3'
+            self.sound.create_sound('spawn_world3.mp3')
 
     def enter_house(self):
             if self.map == 'world':
@@ -223,7 +230,6 @@ class Game:
             self.menu.run()
             self.fight.run(self.tmx_data, self.group, self.map, self.player, self.inventory)
             self.health.run(self.tmx_data, self.group, self.map, self.player, self.inventory)
-
             pygame.display.flip()
 
             for event in pygame.event.get():
