@@ -1,10 +1,13 @@
 import pygame
+from sound import Sound
+import time
 
 class Health:
     def __init__(self, screen):
         print('HEALTH LOADED')
         self.screen = screen
         self.heath_zone = []
+        self.sound = Sound()
 
 
     def get_map(self):
@@ -18,14 +21,18 @@ class Health:
 
     def create_heath(self):
         pressed = pygame.key.get_pressed()
-
         draw_image_info_health = pygame.image.load('img/info_health.png').convert_alpha()
         self.screen.blit(draw_image_info_health, (350, 0))
 
         if pressed[pygame.K_f]:
             self.inventory.life = [100, 100, 100, 100, 100, 100, 100, 100]
+            self.sound.create_sound('healing-pokemon.mp3')
+            time.sleep(7)
             draw_image_ashealth_load = pygame.image.load('img/as_health.png').convert_alpha()
             self.screen.blit(draw_image_ashealth_load, (350, 0))
+            self.sound.create_sound('spawn_house.mp3')
+
+
 
     def run(self, tmx_data, group, map, player, inventory):
         self.tmx_data = tmx_data
