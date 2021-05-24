@@ -45,7 +45,7 @@
  capture pokemon system<br/>
  player movement/animation/location system<br/>
  sound system<br/>
-</b>
+<br/></b>
 
 <i>arrow right -> right<br/>
 arrow left -> left<br/>
