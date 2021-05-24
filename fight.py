@@ -1,7 +1,9 @@
 import pygame
 import random
 from PIL import Image, ImageDraw
+import time
 from function import Function
+from sound import Sound
 
 class Fight:
 
@@ -20,6 +22,7 @@ class Fight:
         self.transition = False
         self.transitionWait = 0
         self.no_capture = False
+        self.sound = Sound()
 
     def get_fight(self):
         if self.map == 'world':
@@ -42,6 +45,7 @@ class Fight:
                                         n = random.randint(0, len(self.capacity))
                                     self.capa.append(self.capacity[n - 1])
                                     self.get_capacity()
+                                    self.sound.create_sound('pokemon-battle.mp3')
 
 
 
@@ -249,6 +253,9 @@ class Fight:
         self.in_fight = False
         self.change = False
         self.no_capture = False
+        self.sound.create_sound('escape_pokemon.mp3')
+        time.sleep(1.5)
+        self.sound.create_sound('spawn_world.mp3')
 
     def capture(self):
         if self.inventory.pokeball >= 0:
