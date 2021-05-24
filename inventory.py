@@ -1,6 +1,7 @@
 import pygame
 from function import Function
 from PIL import Image, ImageDraw
+from sound import Sound
 
 
 class Inventory(pygame.sprite.Sprite):
@@ -15,6 +16,7 @@ class Inventory(pygame.sprite.Sprite):
         self.inventory_is_open = False
         self.function = Function(self.screen)
         self.tmx_data = tmx_data
+        self.sound = Sound()
 
     def draw_inventory(self):
             menu = pygame.transform.scale(self.menu, self.screen.get_size())
@@ -84,6 +86,7 @@ class Inventory(pygame.sprite.Sprite):
         if len(self.inv) < 8:
             self.inv.append(item)
             print(str(item) + " as added in inventory")
+            self.sound.create_sound('pokamon-capture.mp3')
         else:
             self.function.error('No add inventory')
 
@@ -105,6 +108,7 @@ class Inventory(pygame.sprite.Sprite):
         self.screen.blit(close, (340, 480))
         if pygame.mouse.get_pressed()[0] and Rectplace_close.collidepoint(pygame.mouse.get_pos()):
             self.inventory_is_open = False
+            self.sound.create_sound('spawn_world.mp3')
 
 
     def run(self, tmx_data, map):
@@ -116,5 +120,6 @@ class Inventory(pygame.sprite.Sprite):
                 self.draw_inventory()
             if pressed[pygame.K_e]:
                 self.inventory_is_open = True
+                self.sound.create_sound('pc-on.mp3')
         except:
             ''
