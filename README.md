@@ -31,8 +31,8 @@
 - py main.py
 
 ## ℹ️ Information
-
- <b>3 MAP<br/>
+<b>
+ 3 MAP<br/>
  7 House<br/>
  15 pokemon (1 legendary)<br/>
  menu system<br/>
@@ -43,7 +43,9 @@
  fight system<br/>
  health pokemon system<br/>
  capture pokemon system<br/>
- player movement/animation/location system<br/></b>
+ player movement/animation/location system<br/>
+ sound system<br/>
+</b>
 
 <i>arrow right -> right<br/>
 arrow left -> left<br/>
