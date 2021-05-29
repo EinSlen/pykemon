@@ -45,7 +45,7 @@
  capture pokemon system<br/>
  player movement/animation/location system<br/>
  sound system<br/>
- config system <i>config the game in config.py</i><br/>
+ config system - <i>config the game in config.py</i><br/>
  console system <br/>
 <br/></b>
 
