@@ -105,6 +105,8 @@ class Console:
                                 self.task_text = ["The command fps as been load to off", "Reload the game"]
                             else:
                                 self.task_text = ["Invalid argument, Type 'help' for help"]
+                        else:
+                            self.task_text = ["Invalid command, Type 'help' for help"]
                         print("Command console execute : " + command)
 
                         self.user_text = ''
@@ -129,4 +131,3 @@ class Console:
         if config.Config.console_active(self):
             self.game = game
             self.get_events()
-
