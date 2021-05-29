@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.6.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="38">
+<map version="1.5" tiledversion="1.6.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="42">
  <tileset firstgid="1" source="nature.tsx"/>
  <tileset firstgid="721" source="winter.tsx"/>
  <tileset firstgid="1441" source="house.tsx"/>
@@ -121,12 +121,16 @@
   <object id="29" type="collision" x="272.948" y="348.549" width="30.4366" height="11.291"/>
   <object id="30" type="collision" x="152.183" y="332.348" width="14.7274" height="13.7456"/>
   <object id="31" name="exit_house7" x="193.911" y="366.221" width="28.9639" height="15.7092"/>
-  <object id="32" name="spawn_house7" x="214.038" y="330.876">
+  <object id="32" name="spawn_house7" x="203.729" y="340.694">
    <point/>
   </object>
   <object id="33" name="health_zone" x="16.6911" y="127.147" width="42.7095" height="17.182"/>
   <object id="34" name="health_zone" x="42.2186" y="143.838" width="17.6729" height="42.7095"/>
   <object id="35" name="health_zone" x="16.2001" y="189.002" width="44.6731" height="13.7456"/>
   <object id="37" name="health_zone" x="343.148" y="128.128" width="43.2004" height="69.7097"/>
+  <object id="38" type="collision" x="15.7092" y="143.347" width="27.4911" height="45.164"/>
+  <object id="39" type="collision" x="347.566" y="140.401" width="5.89093" height="48.1095"/>
+  <object id="40" type="collision" x="348.058" y="185.565" width="41.7276" height="4.90912"/>
+  <object id="41" type="collision" x="345.848" y="135.001" width="42.7094" height="4.90912"/>
  </objectgroup>
 </map>

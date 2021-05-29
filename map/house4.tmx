@@ -93,7 +93,7 @@
   <object id="1" name="spawn_house4" x="61.3642" y="315.166">
    <point/>
   </object>
-  <object id="2" name="exit_house4" x="39.764" y="321.549" width="17.182" height="28.473"/>
+  <object id="2" name="exit_house4" x="42.7095" y="355.913" width="17.182" height="28.473"/>
   <object id="3" type="collision" x="0.490913" y="-0.490913" width="400.094" height="14.7274"/>
   <object id="4" type="collision" x="382.912" y="12.7637" width="18.1638" height="386.349"/>
   <object id="5" type="collision" x="0.490913" y="383.894" width="382.422" height="15.7092"/>
