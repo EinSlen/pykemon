@@ -2,6 +2,8 @@ import pygame
 import random
 from PIL import Image, ImageDraw
 import time
+
+import config
 from function import Function
 from sound import Sound
 
@@ -305,34 +307,35 @@ class Fight:
             self.in_attak = True
 
     def run(self, tmx_data, group, map, player, inventory):
-        self.tmx_data = tmx_data
-        self.group = group
-        self.map = map
-        self.player = player
-        self.inventory = inventory
+        if config.Config.fight(self):
+            self.tmx_data = tmx_data
+            self.group = group
+            self.map = map
+            self.player = player
+            self.inventory = inventory
 
-        try:
-            if self.in_fight == False:
-                self.get_fight()
-            else:
-                self.for_fight()
-            if self.change:
-                self.Change()
-            if self.transition == True:
-                if self.transitionWait <= self.wait:
-                    self.transitionWait = self.transitionWait + 1
-                    transition = pygame.image.load('img/noir.jpg').convert_alpha()
-                    transition = pygame.transform.scale(transition, self.screen.get_size())
-                    self.transition = False
-                    self.in_fight = True
-                    return self.screen.blit(transition, (0, 0))
-            if self.no_capture:
-                img = Image.new('RGB', (155, 30), color=(0, 0, 0))
-                d = ImageDraw.Draw(img)
-                d.text((10, 10), self.errorMess, fill=(255, 0, 0))
-                img.save('img/error.png')
+            try:
+                if self.in_fight == False:
+                    self.get_fight()
+                else:
+                    self.for_fight()
+                if self.change:
+                    self.Change()
+                if self.transition == True:
+                    if self.transitionWait <= self.wait:
+                        self.transitionWait = self.transitionWait + 1
+                        transition = pygame.image.load('img/noir.jpg').convert_alpha()
+                        transition = pygame.transform.scale(transition, self.screen.get_size())
+                        self.transition = False
+                        self.in_fight = True
+                        return self.screen.blit(transition, (0, 0))
+                if self.no_capture:
+                    img = Image.new('RGB', (155, 30), color=(0, 0, 0))
+                    d = ImageDraw.Draw(img)
+                    d.text((10, 10), self.errorMess, fill=(255, 0, 0))
+                    img.save('img/error.png')
 
-                draw_image = pygame.image.load("img/error.png")
-                self.screen.blit(draw_image, (350, 0))
-        except:
-            ''
+                    draw_image = pygame.image.load("img/error.png")
+                    self.screen.blit(draw_image, (350, 0))
+            except:
+                print('ERROR FIGHT')
