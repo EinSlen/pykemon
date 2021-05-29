@@ -1,4 +1,6 @@
 import pygame
+
+import config
 from function import Function
 from PIL import Image, ImageDraw
 from sound import Sound
@@ -112,14 +114,16 @@ class Inventory(pygame.sprite.Sprite):
 
 
     def run(self, tmx_data, map):
-        self.tmx_data = tmx_data
-        self.map = map
-        pressed = pygame.key.get_pressed()
-        try:
-            if self.inventory_is_open:
-                self.draw_inventory()
-            if pressed[pygame.K_e]:
-                self.inventory_is_open = True
-                self.sound.create_sound('pc-on.mp3')
-        except:
-            ''
+        if config.Config.inventory(self):
+            self.tmx_data = tmx_data
+            self.map = map
+            pressed = pygame.key.get_pressed()
+            try:
+                if self.inventory_is_open:
+                    self.draw_inventory()
+                if pressed[pygame.K_e]:
+                    self.inventory_is_open = True
+                    self.sound.create_sound('pc-on.mp3')
+            except:
+                print('ERROR INVENTORY')
+
