@@ -45,6 +45,8 @@
  capture pokemon system<br/>
  player movement/animation/location system<br/>
  sound system<br/>
+ config system <i>config the game in config.py</i><br/>
+ console system <br/>
 <br/></b>
 
 <i>arrow right -> right<br/>
@@ -52,7 +54,8 @@ arrow left -> left<br/>
 arrow up -> up<br/>
 arrow down -> down<br/>
 key e -> inventory<br/>
-key f -> interact environnement</i>
+key f -> interact environnement<br/>
+key p -> open the console</i>
 
 ## ✨ Author
 
