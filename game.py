@@ -2,12 +2,16 @@ import pygame
 import pytmx
 import pyscroll
 
+import config
 from player import Player
 from inventory import Inventory
 from menu import Menu
 from fight import Fight
 from health import Health
 from sound import Sound
+from function import Function
+from consolesys import Console
+
 
 # important:
 # collision
@@ -19,7 +23,7 @@ class Game:
     def __init__(self):
         self.map = 'world'
         self.tiledmap = 'world1'
-        self.screen = pygame.display.set_mode((800, 600))
+        self.screen = pygame.display.set_mode(config.Config.screen(self))
         pygame.display.set_caption("Pykemon - Adventure")
         icon = pygame.image.load("img/icon.png")
         pygame.display.set_icon(icon)
@@ -49,6 +53,8 @@ class Game:
         self.fight = Fight(self.screen)
         self.health = Health(self.screen)
         self.sound = Sound()
+        self.function = Function(self.screen)
+        self.console = Console(self.screen, self.inventory)
         self.sound.create_sound('spawn_world.mp3')
 
     def handle_input(self):
@@ -216,7 +222,7 @@ class Game:
 
     def run(self):
 
-        clock = pygame.time.Clock()
+        self.clock = pygame.time.Clock()
 
         running = True
 
@@ -230,12 +236,14 @@ class Game:
             self.menu.run()
             self.fight.run(self.tmx_data, self.group, self.map, self.player, self.inventory)
             self.health.run(self.tmx_data, self.group, self.map, self.player, self.inventory)
+            self.console.run(self)
+            self.function.fps_stats(str(round(self.clock.get_fps())))
             pygame.display.flip()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
 
-            clock.tick(60)
+            self.clock.tick(config.Config.system_speed(self))
 
         pygame.quit()
