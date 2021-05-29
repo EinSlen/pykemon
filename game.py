@@ -75,7 +75,6 @@ class Game:
 
     def switch_house(self, map_name, spawn_name, spawn_house):
 
-        self.screen = pygame.display.set_mode((800, 600))
         self.tmx_data = pytmx.util_pygame.load_pygame('map/' + map_name + '.tmx')
         print('NEW MAP Generate : ' + str(self.tmx_data))
         map_data = pyscroll.data.TiledMapData(self.tmx_data)
@@ -104,7 +103,6 @@ class Game:
 
     def switch_world(self, world_name, house_name, spawn_name):
 
-        self.screen = pygame.display.set_mode((800, 600))
         self.tmx_data = pytmx.util_pygame.load_pygame('map/' + world_name + '.tmx')
         map_data = pyscroll.data.TiledMapData(self.tmx_data)
         map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
