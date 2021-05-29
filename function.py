@@ -1,6 +1,9 @@
 from PIL import Image, ImageDraw
 import pygame
 
+import config
+
+
 class Function:
     def __init__(self, screen):
         self.screen = screen
@@ -31,6 +34,19 @@ class Function:
 
         draw = pygame.image.load('img/' + msg + '.png').convert_alpha()
         self.screen.blit(draw, (0, 0))
+
+    def fps_stats(self, clock):
+        self.clock = clock
+        if config.Config.fps_show(self):
+            try:
+                draw_image_name = Image.new('RGB', (50, 30), color=(0, 0, 0))
+                d_name = ImageDraw.Draw(draw_image_name)
+                d_name.text((7, 7), self.clock + " FPS", fill=(135, 206, 250))
+                draw_image_name.save('img/clock.png')
+                draw_image_name_load = pygame.image.load('img/clock.png').convert_alpha()
+                self.screen.blit(draw_image_name_load, (750, 575))
+            except:
+                print('ERROR FPS')
 
     #draw_image_name = Image.new('RGB', (120, 30), color=(255, 255, 255))
     #d_name = ImageDraw.Draw(draw_image_name)
