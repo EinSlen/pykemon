@@ -1,4 +1,6 @@
 import pygame
+
+import config
 from sound import Sound
 import time
 
@@ -35,10 +37,12 @@ class Health:
 
 
     def run(self, tmx_data, group, map, player, inventory):
-        self.tmx_data = tmx_data
-        self.group = group
-        self.map = map
-        self.player = player
-        self.inventory = inventory
+        if config.Config.health(self):
+            self.tmx_data = tmx_data
+            self.group = group
+            self.map = map
+            self.player = player
+            self.inventory = inventory
 
-        self.get_map()
+            self.get_map()
+
