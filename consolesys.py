@@ -2,6 +2,7 @@ import pygame
 
 import config
 from config import Config
+from sound import Sound
 
 class Console:
 
@@ -15,6 +16,7 @@ class Console:
         self.base_font = pygame.font.Font(None, 32)
         self.color = (98, 234, 39)
         self.config = Config()
+        self.sound = Sound()
 
     def console_dec(self):
         text_explication = self.base_font.render('*************************', True, self.color)
@@ -32,6 +34,12 @@ class Console:
         self.run_console = False
         self.inventory.inventory_is_open = False
         self.task_text = ''
+        if self.tiledmap == 'world1':
+            self.sound.create_sound('spawn_world.mp3')
+        elif self.tiledmap == 'world2':
+            self.sound.create_sound('spawn_world2.mp3')
+        elif self.tiledmap == 'world3':
+            self.sound.create_sound('spawn_world3.mp3')
 
     def get_events(self):
         pressed = pygame.key.get_pressed()
@@ -108,7 +116,6 @@ class Console:
                         else:
                             self.task_text = ["Invalid command, Type 'help' for help"]
                         print("Command console execute : " + command)
-
                         self.user_text = ''
                     if event.key == pygame.K_BACKSPACE:
                         self.user_text = self.user_text[:-1]
@@ -118,16 +125,16 @@ class Console:
                     self.user_text = self.user_text[:-1]
             text_surface = self.base_font.render(self.user_text, True, (255, 255, 255))
             self.screen.blit(text_surface, (self.input_rect.x + 5, self.input_rect.y + 5))
-            x, y = 20, 120
+            y = 120
             for text in self.task_text:
                 font = pygame.font.SysFont('Arial', 32)
                 word_surface = font.render(text, 0, self.color)
                 word_width, word_height = word_surface.get_size()
-                self.screen.blit(word_surface, (x, y))
+                self.screen.blit(word_surface, (20, y))
                 y += word_height
             pygame.draw.rect(self.screen, pygame.Color(0, 0, 0, 0), self.input_rect)
-
-    def run(self, game):
+    def run(self, game, tiledmap):
         if config.Config.console_active(self):
             self.game = game
+            self.tiledmap = tiledmap
             self.get_events()
