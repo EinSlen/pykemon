@@ -28,6 +28,7 @@ class Health:
 
         if pressed[pygame.K_f]:
             self.inventory.life = [100, 100, 100, 100, 100, 100, 100, 100]
+            self.inventory.pokeball = 50
             self.sound.create_sound('healing-pokemon.mp3')
             time.sleep(7)
             draw_image_ashealth_load = pygame.image.load('img/as_health.png').convert_alpha()
