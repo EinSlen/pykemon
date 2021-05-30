@@ -234,7 +234,7 @@ class Game:
             self.menu.run()
             self.fight.run(self.tmx_data, self.group, self.map, self.player, self.inventory)
             self.health.run(self.tmx_data, self.group, self.map, self.player, self.inventory)
-            self.console.run(self)
+            self.console.run(self, self.tiledmap)
             self.function.fps_stats(str(round(self.clock.get_fps())))
             pygame.display.flip()
 
