@@ -190,10 +190,7 @@ class Fight:
             self.capture()
 
         Attak = pygame.draw.rect(self.screen, (255, 255, 255), (470, 450, 210, 110))
-        if pygame.mouse.get_pressed()[0] and Attak.collidepoint(pygame.mouse.get_pos()):
-            self.attack()
-
-        if self.in_attak == False:
+        if pygame.mouse.get_pressed()[0] and Attak.collidepoint(pygame.mouse.get_pos()) or self.in_attak == False:
             self.attack()
 
         fuir = pygame.image.load('img/Fuir.png').convert_alpha()
